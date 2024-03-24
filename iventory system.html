@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            font-family: 'Helvetica';
+            font-size: 2em;
+        }
+        input {
+            height: 50px;
+            width: 300px;
+            font-size: 1.2em;
+            background-color: #333;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover {
+            background-color: #555;
+        }
+        table, th, td {
+            width: 500px;
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 10px;
+            text-align: center;
+        }
+        th {
+            background-color: #222;
+            color: white;
+        }
+        td {
+            background-color: #444;
+            color: white;
+        }
+        #editForm {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Inventory System</h2>
+    <form action="#" id="inputForm">
+        <p id="usersList"></p>
+        <p>Item: <input type="text" id="item"></p>
+        <p>Quantity: <input type="number" id="quantity"></p>
+        <input type="submit" value="Submit" id="submitButton">
+    </form>
+    <div class="setVisibility">
+        <p>View table (Check the box)<input type="checkbox" id="checkbox" style="margin:auto;"></p>
+    </div>
+    <div class="tablesSection" style="margin-top: 10px; display: none;">
+        <table id="inventoryTable">
+            <thead>
+                <tr>
+                    <th>Item</th>
+                    <th>Quantity</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Table body will be populated dynamically -->
+            </tbody>
+        </table>
+    </div>
+    <form id="editForm" style="display: none;">
+        <input type="text" id="editedItem" disabled>
+        <input type="number" id="editedQuantity">
+        <input type="submit" value="Update">
+    </form>
+    <script src="app.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Function to populate the table with data
+            function populateTable(data) {
+                var tbody = document.querySelector("#inventoryTable tbody");
+                tbody.innerHTML = "";
+                data.forEach(function (item) {
+                    var row = document.createElement("tr");
+                    row.innerHTML = "<td>" + item.name + "</td><td>" + item.quantity + "</td>";
+                    tbody.appendChild(row);
+                });
+            }
+
+            // Sample data (replace this with your actual data)
+            var inventoryData = [
+                { name: "Noodles", quantity: 100 },
+                { name: "Cupcake", quantity: 200 },
+                { name: "Milktea", quantity: 300 }
+            ];
+
+            populateTable(inventoryData);
+
+            // Add click event listener to table cells
+            document.getElementById("inventoryTable").addEventListener("click", function (event) {
+                var target = event.target;
+                if (target.tagName === "TD") {
+                    var item = target.parentElement.cells[0].innerText;
+                    var quantity = target.parentElement.cells[1].innerText;
+                    document.getElementById("editedItem").value = item;
+                    document.getElementById("editedQuantity").value = quantity;
+                    document.getElementById("editForm").style.display = "block";
+                }
+            });
+
+            // Add submit event listener to edit form
+            document.getElementById("editForm").addEventListener("submit", function (event) {
+                event.preventDefault(); // Prevent default form submission
+                var item = document.getElementById("editedItem").value;
+                var quantity = document.getElementById("editedQuantity").value;
+                
+                // Update the quantity in the table
+                var rows = document.getElementById("inventoryTable").rows;
+                for (var i = 1; i < rows.length; i++) {
+                    if (rows[i].cells[0].innerText === item) {
+                        rows[i].cells[1].innerText = quantity;
+                        break;
+                    }
+                }
+
+                // Hide the edit form
+                document.getElementById("editForm").style.display = "none";
+            });
+
+            // Add event listener to the checkbox for showing/hiding the table
+            document.getElementById("checkbox").addEventListener("change", function () {
+                var tablesSection = document.querySelector(".tablesSection");
+                tablesSection.style.display = this.checked ? "block" : "none";
+            });
+
+            // Add event listener to the input form for submitting new items
+            document.getElementById("inputForm").addEventListener("submit", function (event) {
+                event.preventDefault(); // Prevent default form submission
+                var newItem = document.getElementById("item").value;
+                var newQuantity = document.getElementById("quantity").value;
+
+                // Add the new item to the table
+                var tbody = document.querySelector("#inventoryTable tbody");
+                var newRow = document.createElement("tr");
+                newRow.innerHTML = "<td>" + newItem + "</td><td>" + newQuantity + "</td>";
+                tbody.appendChild(newRow);
+
+                // Clear the input fields
+                document.getElementById("item").value = "";
+                document.getElementById("quantity").value = "";
+            });
+        });
+    </script>
+</body>
+</html>

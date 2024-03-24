@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            font-family: 'Helvetica';
+            font-size: 16px;
+            margin: 0;
+            padding: 0;
+            background-image: url('heart_market_background.jpg'); /* Replace 'heart_market_background.jpg' with your actual image path */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            color: #333; /* Default text color */
+        }
+
+        table, th, td {
+            border: 1px solid #ccc; /* Light gray border */
+            border-collapse: collapse;
+            background-color: #fff; /* White background */
+            color: #333; /* Default text color */
+            padding: 8px; /* Padding for table cells */
+            text-align: center; /* Center-align text */
+        }
+
+        input {
+            height: 50px;
+            width: 300px;
+            font-size: 1.2em;
+            margin-bottom: 10px; /* Add space below inputs */
+            border: 1px solid #ccc; /* Light gray border */
+            border-radius: 5px; /* Rounded corners */
+            padding: 10px; /* Padding for inputs */
+            background-color: #f2f2f2; /* Light gray background */
+            color: #333; /* Default text color */
+        }
+
+        input[type="submit"] {
+            background-color: #8E7AB5; /* Pink submit button */
+            color: white; /* White text */
+            cursor: pointer; /* Cursor on hover */
+        }
+
+        input[type="submit"]:hover {
+            background-color: #8E7AB5; /* Pink hover color */
+        }
+
+        h1, h2 {
+            color: #333; /* Default text color */
+        }
+
+        #title {
+            text-align: center; /* Center-align title */
+            margin-top: 50px; /* Add space above title */
+        }
+
+        .regForm, .logForm {
+            background-color: rgba(255, 255, 255, 0.7); /* Semi-transparent white background */
+            padding: 20px; /* Padding for forms */
+            border-radius: 10px; /* Rounded corners */
+            width: 400px; /* Form width */
+            margin: 0 auto; /* Center-align forms */
+        }
+
+        .welcomePanel {
+            background-color: rgba(255, 255, 255, 0.7); /* Semi-transparent white background */
+            padding: 20px; /* Padding for welcome panel */
+            border-radius: 10px; /* Rounded corners */
+            width: 400px; /* Panel width */
+            margin: 20px auto; /* Center-align panel */
+            text-align: center; /* Center-align text */
+        }
+    </style>
+</head>
+<body>
+    <h1 id="title">Login and registration system</h1>
+    <div class="regForm">
+        <h2>Register here!</h2>
+        <form action="#" id="registrationForm" onsubmit="return validateRegistration()">
+            <p>Username: <input type="text" id="usernameReg"></p>
+            <p>Password: <input type="password" id="passwordReg"></p>
+            <input type="submit" value="Register">
+        </form>    
+    </div>
+    <div class="logForm" style="display: none;">
+        <h2>Login here! Time to login now!</h2>
+        <form action="#" id="loginForm">
+            <p>Username: <input type="text" id="username"></p>
+            <p>Password: <input type="password" id="password"></p>
+            <input type="submit" value="Login">
+        </form>
+    </div>
+    <div class="welcomePanel">
+        <h2 id="greeting"></h2>
+    </div>
+    <script src="app.js"></script>
+    <script>
+        function validateRegistration() {
+            var password = document.getElementById("passwordReg").value;
+
+            // Check password length
+            if (password.length < 😎 {
+                alert("Password must be at least 8 characters long.");
+                return false;
+            }
+
+            // Check if password consists only of integers
+            if (/^\d+$/.test(password)) {
+                alert("Password cannot consist only of integers.");
+                return false;
+            }
+
+            // Check if password contains both uppercase and lowercase characters
+            if (!/[a-z]/.test(password) || !/[A-Z]/.test(password)) {
+                alert("Password must contain both uppercase and lowercase characters.");
+                return false;
+            }
+
+            return true;
+        }
+    </script>
+</body>
+</html>
